@@ -6,7 +6,8 @@ import registerServiceWorker from './registerServiceWorker';
 const size = 20
 let props = {
     rows: size,
-    cols: size
+    cols: size,
+    fps: 10
 }
 ReactDOM.render(<App {...props} />, document.getElementById('root'));
 registerServiceWorker();
