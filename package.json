@@ -8,11 +8,13 @@
     "react-dom": "^16.2.0",
     "styled-components": "^3.0.2"
   },
-  "homepage": "a-ns.github.io/game-of-life",
+  "homepage": "https://a-ns.github.io/game-of-life",
   "devDependencies": {
     "react-scripts": "1.1.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build -b gh-pages",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
