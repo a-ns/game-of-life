@@ -12,18 +12,10 @@ class Container extends React.Component {
     fps: 10
   };
   changeRows = rows => {
-    if (rows === NaN) {
-      this.setState({ rows: 20 });
-    } else {
-      this.setState({ rows });
-    }
+    this.setState({ rows });
   };
   changeColumns = cols => {
-    if (cols === NaN) {
-      this.setState({ cols: 20 });
-    } else {
-      this.setState({ cols });
-    }
+    this.setState({ cols });
   };
   render() {
     return (
@@ -45,12 +37,18 @@ class RowColumnPicker extends React.Component {
         <label>Columns:</label>
         <input
           value={this.props.cols}
-          onChange={e => this.props.changeColumns(Number(e.target.value))}
+          onChange={e => {
+            const value = e.target.value.replace(/\D/g, "");
+            this.props.changeColumns(Number(value));
+          }}
         />
         <label>Rows:</label>
         <input
           value={this.props.rows}
-          onChange={e => this.props.changeRows(Number(e.target.value))}
+          onChange={e => {
+            const value = e.target.value.replace(/\D/g, "");
+            this.props.changeRows(Number(value));
+          }}
         />
       </form>
     );
