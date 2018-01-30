@@ -12,11 +12,18 @@ class Container extends React.Component {
     fps: 10
   };
   changeRows = rows => {
-    console.log(rows);
-    this.setState({ rows });
+    if (rows === NaN) {
+      this.setState({ rows: 20 });
+    } else {
+      this.setState({ rows });
+    }
   };
   changeColumns = cols => {
-    this.setState({ cols });
+    if (cols === NaN) {
+      this.setState({ cols: 20 });
+    } else {
+      this.setState({ cols });
+    }
   };
   render() {
     return (
