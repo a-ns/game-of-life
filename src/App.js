@@ -62,7 +62,6 @@ function computeNextState(state) {
 
 class App extends Component {
   constructor(props) {
-    console.log(props);
     super(props);
     this.state = {
       grid: fillWithData(make2DArray(props.rows, props.cols)),

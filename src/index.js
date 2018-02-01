@@ -6,7 +6,6 @@ import registerServiceWorker from "./registerServiceWorker";
 
 class Container extends React.Component {
   state = {
-    dim: 25,
     rows: 20,
     cols: 20,
     fps: 10
@@ -18,6 +17,12 @@ class Container extends React.Component {
     this.setState({ cols });
   };
   render() {
+    const dim =
+      (window.innerHeight > window.innerWidth
+        ? window.innerHeight
+        : window.innerWidth) /
+      (this.state.cols > this.state.rows ? this.state.cols : this.state.rows) *
+      0.3;
     return (
       <Fragment>
         <RowColumnPicker
@@ -25,7 +30,7 @@ class Container extends React.Component {
           changeRows={this.changeRows}
           changeColumns={this.changeColumns}
         />
-        <App {...this.state} />
+        <App {...this.state} dim={dim} />
       </Fragment>
     );
   }
@@ -33,7 +38,7 @@ class Container extends React.Component {
 class RowColumnPicker extends React.Component {
   render() {
     return (
-      <form>
+      <form style={{ width: "500px", padding: "5px", margin: "0 auto" }}>
         <label>Columns:</label>
         <input
           value={this.props.cols}

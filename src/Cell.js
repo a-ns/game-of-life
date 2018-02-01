@@ -1,6 +1,7 @@
 import React from "react";
 class Cell extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.dim !== this.props.dim) return true;
     if (nextProps.item === this.props.item) return false;
     return true;
   }
