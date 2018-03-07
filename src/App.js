@@ -33,9 +33,9 @@ class App extends Component {
   componentDidMount() {
     this.interval = setInterval(() => {
       this.setState(prevState => {
-        return this.state.automata.next();
+        return prevState.automata.next();
       });
-    }, this.props.fps);
+    }, 1000 / this.props.fps);
   }
   componentWillUnmount() {
     clearInterval(this.interval);

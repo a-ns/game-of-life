@@ -5,21 +5,21 @@ class Automata {
     this.grid = this.fillWithData(this.make2DArray(rows, cols));
     this.nextGrid = this.make2DArray(rows, cols);
   }
-  fillWithData = grid => {
+  fillWithData(grid) {
     for (var i = 0; i < grid.length; i++) {
       for (var j = 0; j < grid[0].length; j++) {
         grid[i][j] = Math.floor(Math.random() * Math.floor(2));
       }
     }
     return grid;
-  };
-  make2DArray = (cols, rows) => {
+  }
+  make2DArray(cols, rows) {
     let arr = new Array(cols);
     for (let i = 0; i < arr.length; i++) {
       arr[i] = new Array(rows);
     }
     return arr;
-  };
+  }
   next() {
     const { grid, nextGrid } = this.computeNextState(this);
     this.grid = grid;
