@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 import Cell from "./Cell";
 import Automata from "./Automata";
+
 const Container = styled.div`
   width: ${props => props.cols * props.dim + "px"};
   height: ${props => props.rows * props.dim + "px"};
@@ -14,19 +15,25 @@ const Container = styled.div`
 class App extends Component {
   constructor(props) {
     super(props);
+    let automata = new Automata(props.rows, props.cols);
+    let { grid, nextGrid } = automata;
     this.state = {
-      automata: new Automata(props.rows, props.cols)
+      automata,
+      grid,
+      nextGrid
     };
-    this.state.grid = this.state.automata.grid;
-    this.state.nextGrid = this.state.automata.nextGrid;
   }
   componentWillReceiveProps(nextProps) {
     if (
       this.props.rows != nextProps.rows ||
       this.props.cols != nextProps.cols
     ) {
+      let automata = new Automata(nextProps.rows, nextProps.cols);
+      let { grid, nextGrid } = automata;
       this.setState({
-        automata: new Automata(nextProps.rows, nextProps.cols)
+        automata,
+        grid,
+        nextGrid
       });
     }
   }
