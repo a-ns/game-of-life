@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from "react";
+import React from "react";
 import styled from "styled-components";
 import Cell from "./Cell";
 import Automata from "./Automata";
 
-const Container = styled.div`
+const GridContainer = styled.div`
   width: ${props => props.cols * props.dim + "px"};
   height: ${props => props.rows * props.dim + "px"};
   margin: 0 auto;
@@ -12,7 +12,7 @@ const Container = styled.div`
   grid-template-rows: ${props => `repeat(${props.rows}, 1fr)`};
 `;
 
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     let automata = new Automata(props.rows, props.cols);
@@ -25,8 +25,8 @@ class App extends Component {
   }
   componentWillReceiveProps(nextProps) {
     if (
-      this.props.rows != nextProps.rows ||
-      this.props.cols != nextProps.cols
+      this.props.rows !== nextProps.rows ||
+      this.props.cols !== nextProps.cols
     ) {
       let automata = new Automata(nextProps.rows, nextProps.cols);
       let { grid, nextGrid } = automata;
@@ -49,13 +49,13 @@ class App extends Component {
   }
   render() {
     return (
-      <Container {...this.props}>
+      <GridContainer {...this.props}>
         {this.state.grid.map((row, i) => {
           return row.map((item, j) => (
             <Cell dim={this.props.dim} item={item} key={`${i}${j}`} />
           ));
         })}
-      </Container>
+      </GridContainer>
     );
   }
 }

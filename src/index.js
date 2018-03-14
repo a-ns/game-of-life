@@ -1,27 +1,65 @@
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import { injectGlobal } from "styled-components";
 import registerServiceWorker from "./registerServiceWorker";
+import RowColumnPicker from "./RowColumnPicker";
 
 class Container extends React.Component {
   state = {
     rows: 20,
     cols: 20,
-    fps: 10
+    fps: 10,
+    dim: 20
   };
   changeRows = rows => {
-    this.setState({ rows });
+    const dim = this.calculateDim(
+      window.innerWidth,
+      window.innerHeight,
+      rows,
+      this.state.cols
+    );
+    this.setState({ rows, dim });
   };
   changeColumns = cols => {
-    this.setState({ cols });
+    const dim = this.calculateDim(
+      window.innerWidth,
+      window.innerHeight,
+      this.state.rows,
+      cols
+    );
+    this.setState({ cols, dim });
   };
+  changeDim = dim => {
+    this.setState({ dim });
+  };
+  calculateDim = (width, height, rows, cols) => {
+    return (
+      (height > width ? height : width) / (cols > rows ? cols : rows) * 0.3
+    );
+  };
+  componentDidMount() {
+    this.changeDim(
+      this.calculateDim(
+        window.innerWidth,
+        window.innerHeight,
+        this.state.rows,
+        this.state.cols
+      )
+    );
+    window.addEventListener("resize", e => {
+      e.preventDefault();
+      const dim = this.calculateDim(
+        window.innerWidth,
+        window.innerHeight,
+        this.state.rows,
+        this.state.cols
+      );
+      this.changeDim(dim);
+    });
+  }
   render() {
-    const dim =
-      (window.innerHeight > window.innerWidth
-        ? window.innerHeight
-        : window.innerWidth) /
-      (this.state.cols > this.state.rows ? this.state.cols : this.state.rows) *
-      0.3;
+    const dim = this.state.dim || 25;
     return (
       <Fragment>
         <RowColumnPicker
@@ -34,29 +72,6 @@ class Container extends React.Component {
     );
   }
 }
-class RowColumnPicker extends React.Component {
-  render() {
-    return (
-      <form style={{ width: "500px", padding: "5px", margin: "0 auto" }}>
-        <label>Columns:</label>
-        <input
-          value={this.props.cols}
-          onChange={e => {
-            const value = e.target.value.replace(/\D/g, "");
-            this.props.changeColumns(Number(value));
-          }}
-        />
-        <label>Rows:</label>
-        <input
-          value={this.props.rows}
-          onChange={e => {
-            const value = e.target.value.replace(/\D/g, "");
-            this.props.changeRows(Number(value));
-          }}
-        />
-      </form>
-    );
-  }
-}
+
 ReactDOM.render(<Container />, document.getElementById("root"));
 registerServiceWorker();

@@ -1,22 +1,20 @@
 import React from "react";
-class Cell extends React.Component {
+import styled from "styled-components";
+const Presenter = styled.span`
+  border: 1px solid black;
+  width: ${props => props.dim + "px"};
+  height: ${props => props.dim + "px"};
+  background-color: ${props => (props.item === 0 ? "white" : "black")};
+`;
+class Container extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     if (nextProps.dim !== this.props.dim) return true;
     if (nextProps.item === this.props.item) return false;
     return true;
   }
   render() {
-    return (
-      <span
-        style={{
-          border: "1px solid black",
-          width: this.props.dim + "px",
-          height: this.props.dim + "px",
-          backgroundColor: this.props.item === 0 ? "white" : "black"
-        }}
-      />
-    );
+    return <Presenter {...this.props} />;
   }
 }
 
-export default Cell;
+export default Container;
