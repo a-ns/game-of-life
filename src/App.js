@@ -36,15 +36,26 @@ class App extends React.Component {
         nextGrid
       });
     }
+    if (!this.props.playing && nextProps.playing) {
+      this.start();
+    } else if (this.props.playing && !nextProps.playing) {
+      this.pause();
+    }
   }
   componentDidMount() {
+    this.start();
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+  start() {
     this.interval = setInterval(() => {
       this.setState(prevState => {
         return prevState.automata.next();
       });
     }, 1000 / this.props.fps);
   }
-  componentWillUnmount() {
+  pause() {
     clearInterval(this.interval);
   }
   render() {

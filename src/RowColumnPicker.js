@@ -1,8 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 const PickerForm = styled.form`
-  width: 500px;
+  width: 600px;
   margin: 0 auto;
+`;
+const Button = styled.button`
+  border-radius: 2px;
+  background-color: #eceff1;
+  border: none;
+  padding: 5px;
+  &:active {
+    background-color: #69f0ae;
+  }
+  &:hover {
+    transform: translate(0px, -1px);
+  }
+  font-family: "Roboto";
 `;
 const Input = styled.input`
   margin: 0.5em;
@@ -34,6 +47,14 @@ class RowColumnPicker extends React.Component {
             this.props.changeRows(Number(value));
           }}
         />
+        <Button
+          onClick={e => {
+            e.preventDefault();
+            this.props.playPause();
+          }}
+        >
+          Play/Pause
+        </Button>
       </PickerForm>
     );
   }

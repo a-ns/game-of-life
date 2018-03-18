@@ -10,7 +10,8 @@ class Container extends React.Component {
     rows: 20,
     cols: 20,
     fps: 10,
-    dim: 20
+    dim: 20,
+    playing: true
   };
   changeRows = rows => {
     const dim = this.calculateDim(
@@ -38,6 +39,12 @@ class Container extends React.Component {
       (height > width ? height : width) / (cols > rows ? cols : rows) * 0.3
     );
   };
+  play = () => {
+    this.setState({ playing: true });
+  };
+  pause = () => {
+    this.setState({ playing: false });
+  };
   componentDidMount() {
     this.changeDim(
       this.calculateDim(
@@ -64,6 +71,7 @@ class Container extends React.Component {
       <Fragment>
         <RowColumnPicker
           {...this.state}
+          playPause={this.state.playing ? this.pause : this.play}
           changeRows={this.changeRows}
           changeColumns={this.changeColumns}
         />
